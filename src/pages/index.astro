@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { MapElections } from '../components/MapElections.tsx';
+---
+
+<Layout title='Visualizador de resultados electorales.'>
+  <main class='w-full'>
+    <MapElections client:visible />
+  </main>
+</Layout>
