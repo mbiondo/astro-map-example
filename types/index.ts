@@ -33,6 +33,7 @@ export interface Properties {
   paso2019_pres_porcentaje_ganador: number;
   paso2023_pres_porcentaje_ganador: number;
   general2019_pres_porcentaje_ganador: number;
+  section?: string;
 }
 
 export enum General2019PresFuerza2 {

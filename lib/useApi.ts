@@ -14,10 +14,9 @@ export const useApi = <T>(query: string) => {
         const json = await response.json();
 
         setData(json);
-
-        setLoading(false);
       } catch (error: any) {
         setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
