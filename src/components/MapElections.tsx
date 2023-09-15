@@ -1,4 +1,4 @@
-import { Map, GeoJson } from 'pigeon-maps';
+import { Map, GeoJson, ZoomControl } from 'pigeon-maps';
 import { useState } from 'react';
 import { Elections, Sections } from '../../utils/const';
 import { generateStyles } from '../../lib/generateStyles';
@@ -108,6 +108,7 @@ export function MapElections() {
         </aside>
         {processedData && (
           <Map defaultCenter={[-37.478754, -60.198724]} defaultZoom={6}>
+            <ZoomControl />
             <GeoJson
               data={processedData}
               styleCallback={({ properties }: { properties: Properties }) => {
