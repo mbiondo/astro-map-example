@@ -55,8 +55,18 @@ export function MapElections() {
         <aside className='p-3 sm:w-full lg:w-96'>
           <div
             role='filter'
-            className='p-3 flex lg:flex-col sm:flex-row justify-between items-center'>
-            <h2 className='text-2xl'>Elecciones</h2>
+            className='p-3 flex lg:flex-col sm:flex-row justify-between items-center gap-2'>
+            <img
+              src='/images/logo-union-2x.png'
+              alt='Logo'
+              className='hidden lg:w-60 lg:block'
+            />
+            <img
+              src='/images/logo-footer.png'
+              alt='Logo'
+              className='block w-16 md:w-24 lg:hidden'
+            />
+            <div className='divider'></div>
             <select
               className='select select-ghost w-full max-w-xs'
               value={election}
@@ -70,7 +80,10 @@ export function MapElections() {
             <select
               className='select select-ghost w-full max-w-xs'
               value={section}
-              onChange={(e) => setSection(e.target.value)}>
+              onChange={(e) => {
+                setCity('');
+                setSection(e.target.value);
+              }}>
               <option value=''>Todas las secciones</option>
               {Sections.map((section) => (
                 <option value={section.name} key={section.name}>
@@ -94,7 +107,7 @@ export function MapElections() {
           </div>
         </aside>
         {processedData && (
-          <Map defaultCenter={[-34.478754, -60.198724]} defaultZoom={6}>
+          <Map defaultCenter={[-37.478754, -60.198724]} defaultZoom={6}>
             <GeoJson
               data={processedData}
               styleCallback={({ properties }: { properties: Properties }) => {
@@ -102,6 +115,7 @@ export function MapElections() {
               }}
               onClick={(event: any) => {
                 setCity(event.payload.properties.departamen);
+                setSection(event.payload.properties.section);
               }}
             />
           </Map>
