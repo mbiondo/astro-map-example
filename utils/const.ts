@@ -167,25 +167,31 @@ export const Elections = [
   {
     name: 'PASO 2019 - Fuerza Ganadora',
     field: 'paso2019_pres_ganador',
+    percent: 'paso2019_pres_porcentaje_ganador',
   },
   {
     name: 'PASO 2019 - Fuerza 2',
     field: 'paso2019_pres_fuerza2',
+    percent: 'paso2019_pres_porcentaje_ganador',
   },
   {
     name: 'Gral. 2019 - Fuerza Ganadora',
     field: 'general2019_pres_ganador',
+    percent: 'general2019_pres_porcentaje_ganador',
   },
   {
     name: 'Gral. 2019 - Fuerza 2',
     field: 'general2019_pres_fuerza2',
+    percent: 'general2019_pres_porcentaje_ganador',
   },
   {
     name: 'PASO 2023 - Fuerza Ganadora',
     field: 'paso2023_pres_ganador',
+    percent: 'paso2023_pres_porcentaje_ganador',
   },
   {
     name: 'PASO 2023 - Fuerza 2',
     field: 'paso2023_pres_fuerza2',
+    percent: 'paso2023_pres_porcentaje_ganador',
   },
 ];

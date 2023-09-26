@@ -1,9 +1,9 @@
-import { Map, GeoJson, ZoomControl } from 'pigeon-maps';
+import { Map, GeoJson, ZoomControl, Overlay } from 'pigeon-maps';
 import { useState } from 'react';
 import { Elections, Sections } from '../../utils/const';
 import { generateStyles } from '../../lib/generateStyles';
 import { useApi } from '../../lib/useApi';
-import type { GeoJSONResponse, Properties } from '../../types/index';
+import type { Feature, GeoJSONResponse, Properties } from '../../types/index';
 
 const geoJsonLink: string = 'data/data.geojson';
 
@@ -40,7 +40,7 @@ export function MapElections() {
   const cities = Array.from(
     new Set(
       processedData.features &&
-        processedData?.features
+        processedData.features
           .filter(
             (feature) =>
               feature.properties.section === section || section === ''
@@ -52,7 +52,7 @@ export function MapElections() {
   return (
     <section className='h-screen'>
       <div className='flex h-screen lg:flex-row flex-col'>
-        <aside className='p-3 sm:w-full lg:w-96'>
+        <aside className='p-3 sm:w-full lg:w-1/3'>
           <div
             role='filter'
             className='p-3 flex lg:flex-col sm:flex-row justify-between items-center gap-2'>
@@ -104,6 +104,63 @@ export function MapElections() {
                 ))}
               </select>
             )}
+          </div>
+          <div className='p-3 w-full hidden lg:block'>
+            <div className='overflow-x-auto h-96'>
+              <table className='table w-full'>
+                <thead>
+                  <tr>
+                    <th>Distrito</th>
+                    <th>Circuito</th>
+                    <th>Fuerza</th>
+                    <th>{election === 'votos' ? 'Votos' : 'Porcentaje'}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {processedData?.features &&
+                    processedData.features
+                      .filter(
+                        (feature) =>
+                          feature.properties.section === section ||
+                          section === ''
+                      )
+                      .filter(
+                        (feature) =>
+                          feature.properties.departamen === city || city === ''
+                      )
+                      .filter(
+                        (feature) =>
+                          feature.properties[
+                            Elections.find((e) => e.field === election)
+                              ?.percent as keyof Properties
+                          ] !== 0
+                      )
+                      .sort((a, b) =>
+                        a.properties.departamen > b.properties.departamen
+                          ? 1
+                          : -1
+                      )
+                      .map((feature: Feature) => (
+                        <tr>
+                          <td>{feature.properties.departamen}</td>
+                          <td>{feature.properties.circuito}</td>
+                          <td>
+                            {feature.properties[election as keyof Properties]}
+                          </td>
+                          <td>
+                            {
+                              feature.properties[
+                                Elections.find((e) => e.field === election)
+                                  ?.percent as keyof Properties
+                              ]
+                            }{' '}
+                            %
+                          </td>
+                        </tr>
+                      ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </aside>
         {processedData && (
